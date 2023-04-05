@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db, storage } from "../utils/Firebase";
+import { db} from "../utils/Firebase";
 import "firebase/firestore";
-import { ref, list, listAll, getDownloadURL } from "firebase/storage";
+import { Link } from "react-router-dom";
 
 interface dataType {
   id: string;
@@ -32,7 +32,12 @@ export default function ProductList() {
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {product.map((item, key) => (
-            <a key={key} href="/" className="group">
+            <Link
+              key={key}
+              to={`/product-details/${item.id}`}
+              className="group"
+            >
+              `
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img
                   src={item.imgurl}
@@ -46,7 +51,7 @@ export default function ProductList() {
               <p className="mt-1 text-lg font-medium text-center text-gray-900">
                 GHC{item.price}
               </p>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
