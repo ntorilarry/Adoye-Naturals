@@ -51,7 +51,7 @@ function Hero() {
                   </div>
                 </div>
                 <div>
-                  <img className="w-[90%]" src={Herobg} alt="" />
+                  <img className="w-full" src={Herobg} alt="" />
                 </div>
               </div>
             </SwiperSlide>
@@ -79,7 +79,7 @@ function Hero() {
                   </div>
                 </div>
                 <div>
-                  <img className="w-[90%]" src={Herobg} alt="" />
+                  <img className="w-full" src={Herobg} alt="" />
                 </div>
               </div>
             </SwiperSlide>

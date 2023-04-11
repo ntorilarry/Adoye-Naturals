@@ -1,90 +1,61 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
-import { db} from "../utils/Firebase";
+import Navbar from "../components/Navbar";
+import { db } from "../utils/Firebase";
 import "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import Footer from "../components/Footer";
 
 interface dataType {
-    id: string;
-    name: string;
-    price: number;
-    imgurl: string;
+  id: string;
+  name: string;
+  price: number;
+  imgurl: string;
+}
+
+function ProductDetails({ id }: { id: string }) {
+  const [productDetails, setProductDetails] = useState<dataType | null>(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const snapshot = await db.collection("latest products").doc(id).get();
+  //     const items = snapshot.docs.map((doc: { data: () => any }) => doc.data());
+  //     setProductDetails(items);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const docRef = db.collection("latest products").doc(id);
+        const doc = await docRef.get();
+        if (doc.exists) {
+          const data = doc.data() as dataType;
+          setProductDetails({ ...data, id: doc.id });
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.log("Error fetching document:", error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  if (!productDetails) {
+    return <div>Loading...</div>;
   }
 
-function ProductDetails() {
-    const [product, setProduct] = useState<dataType[]>([]);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //       const snapshot = await db.collection("latest products").get();
-    //       const items = snapshot.docs.map((doc: { data: () => any }) => doc.data());
-    //       setProduct(items);
-    //     };
-    
-    //     fetchData();
-    //   }, []);
   return (
     <div>
       <Navbar />
       <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
         <div className="container px-4 mx-auto">
           <div className="flex flex-wrap -mx-4">
-            <div className="w-full px-4">
-              <ul className="flex flex-wrap items-center mb-16">
-                <li className="mr-6">
-                  <a
-                    className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
-                    href="#"
-                  >
-                    <span>Home</span>
-                    <svg
-                      className="ml-6"
-                      width="4"
-                      height="7"
-                      viewBox="0 0 4 7"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M0.150291 0.898704C-0.0500975 0.692525 -0.0500975 0.359292 0.150291 0.154634C0.35068 -0.0507836 0.674443 -0.0523053 0.874831 0.154634L3.7386 3.12787C3.93899 3.33329 3.93899 3.66576 3.7386 3.8727L0.874832 6.84594C0.675191 7.05135 0.35068 7.05135 0.150292 6.84594C-0.0500972 6.63976 -0.0500972 6.30652 0.150292 6.10187L2.49888 3.49914L0.150291 0.898704Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </a>
-                </li>
-                <li className="mr-6">
-                  <a
-                    className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
-                    href="#"
-                  >
-                    <span>Store</span>
-                    <svg
-                      className="ml-6"
-                      width="4"
-                      height="7"
-                      viewBox="0 0 4 7"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M0.150291 0.898704C-0.0500975 0.692525 -0.0500975 0.359292 0.150291 0.154634C0.35068 -0.0507836 0.674443 -0.0523053 0.874831 0.154634L3.7386 3.12787C3.93899 3.33329 3.93899 3.66576 3.7386 3.8727L0.874832 6.84594C0.675191 7.05135 0.35068 7.05135 0.150292 6.84594C-0.0500972 6.63976 -0.0500972 6.30652 0.150292 6.10187L2.49888 3.49914L0.150291 0.898704Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-sm font-medium text-indigo-500 hover:text-indigo-600"
-                    href="#"
-                  >
-                    Apple iPhone 12 PRO
-                  </a>
-                </li>
-              </ul>
-            </div>
             <div className="w-full lg:w-1/2 px-4 mb-16 lg:mb-0">
               <div className="flex -mx-4 flex-wrap items-center justify-between lg:justify-start lg:items-start xl:items-center">
-                <div className="w-full sm:w-auto min-w-max px-4 text-center flex sm:flex-col items-center justify-center">
+                {/* <div className="w-full sm:w-auto min-w-max px-4 text-center flex sm:flex-col items-center justify-center">
                   <a
                     className="inline-block sm:mb-12 mr-4 sm:mr-0 transform -rotate-90 sm:transform-none hover:text-darkBlueGray-400"
                     href="#"
@@ -153,13 +124,9 @@ function ProductDetails() {
                       ></path>
                     </svg>
                   </a>
-                </div>
+                </div> */}
                 <div className="w-full sm:w-9/12 px-4">
-                  <img
-                    className="mb-5"
-                    src="https://shuffle.dev/uinel-assets/images/ecommerce-product-info/ph-photo1.png"
-                    alt=""
-                  />
+                  <img className="mb-5" src={productDetails.imgurl} alt="" />
                   <p className="text-sm text-gray-300">
                     Roll over image to zoom in
                   </p>
@@ -169,17 +136,17 @@ function ProductDetails() {
             <div className="w-full lg:w-1/2 px-4">
               <div className="max-w-md mb-6">
                 <span className="text-xs text-gray-400 tracking-wider">
-                  APPLE #3299803
+                  {productDetails.id}
                 </span>
-                <h2 className="mt-6 mb-4 text-5xl md:text-7xl lg:text-8xl font-heading font-medium">
-                  Apple iPhone 12 Pro (128GB) - Silver
+                <h2 className="mt-6 mb-4 text-5xl md:text-6xl lg:text-7xl font-heading font-medium">
+                  {productDetails.name}
                 </h2>
                 <p className="flex items-center mb-6">
                   <span className="mr-2 text-sm text-blue-500 font-medium">
-                    $
+                    GHC
                   </span>
                   <span className="text-3xl text-blue-500 font-medium">
-                    44.90
+                    {productDetails.price}
                   </span>
                 </p>
                 <p className="text-lg text-gray-400">
@@ -368,6 +335,7 @@ function ProductDetails() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 }
