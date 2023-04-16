@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const navigation = {
   pages: [
-    { name: "All Products", href: "#" },
+    { name: "All Products", href: "/all-products" },
     { name: "Bar Soap", href: "#" },
     { name: "Body Butter", href: "#" },
     { name: "Social Impact", href: "#" },
@@ -67,12 +67,12 @@ export default function Navbar() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
-                      <a
-                        href={page.href}
+                      <Link
+                        to={page.href}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
                         {page.name}
-                      </a>
+                      </Link>
                     </div>
                   ))}
                 </div>
@@ -133,13 +133,13 @@ export default function Navbar() {
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   {navigation.pages.map((page) => (
-                    <a
+                    <Link
                       key={page.name}
-                      href={page.href}
+                      to={page.href}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Group>

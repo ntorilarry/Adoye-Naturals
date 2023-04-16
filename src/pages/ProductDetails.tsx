@@ -1,51 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { db } from "../utils/Firebase";
-import "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
 import Footer from "../components/Footer";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 interface dataType {
   id: string;
   name: string;
   price: number;
   imgurl: string;
+  description: string;
 }
 
-function ProductDetails({ id }: { id: string }) {
-  const [productDetails, setProductDetails] = useState<dataType | null>(null);
+function ProductDetails() {
+  const [productDetails, setProductDetails] = useState<dataType>();
+  const { id } = useParams();
+  console.log(`this is the id ${id}`);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const snapshot = await db.collection("latest products").doc(id).get();
-  //     const items = snapshot.docs.map((doc: { data: () => any }) => doc.data());
-  //     setProductDetails(items);
-  //   };
-
-  //   fetchData();
-  // }, []);
-
+  const fetchProductDetails = async () => {
+    const response = await axios.get(
+      `http://localhost:3001/api/latest-products/${id}`
+    );
+    setProductDetails(response.data);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const docRef = db.collection("latest products").doc(id);
-        const doc = await docRef.get();
-        if (doc.exists) {
-          const data = doc.data() as dataType;
-          setProductDetails({ ...data, id: doc.id });
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.log("Error fetching document:", error);
-      }
-    };
-    fetchData();
-  }, [id]);
-
-  if (!productDetails) {
-    return <div>Loading...</div>;
-  }
+    fetchProductDetails();
+  }, []);
 
   return (
     <div>
@@ -54,7 +34,7 @@ function ProductDetails({ id }: { id: string }) {
         <div className="container px-4 mx-auto">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full lg:w-1/2 px-4 mb-16 lg:mb-0">
-              <div className="flex -mx-4 flex-wrap items-center justify-between lg:justify-start lg:items-start xl:items-center">
+              <div className="flex -mx-4 flex-wrap items-center justify-between lg:justify-center lg:items-start xl:items-center">
                 {/* <div className="w-full sm:w-auto min-w-max px-4 text-center flex sm:flex-col items-center justify-center">
                   <a
                     className="inline-block sm:mb-12 mr-4 sm:mr-0 transform -rotate-90 sm:transform-none hover:text-darkBlueGray-400"
@@ -126,7 +106,7 @@ function ProductDetails({ id }: { id: string }) {
                   </a>
                 </div> */}
                 <div className="w-full sm:w-9/12 px-4">
-                  <img className="mb-5" src={productDetails.imgurl} alt="" />
+                  <img className="mb-5" src={productDetails && productDetails.imgurl} alt="" />
                   <p className="text-sm text-gray-300">
                     Roll over image to zoom in
                   </p>
@@ -134,24 +114,23 @@ function ProductDetails({ id }: { id: string }) {
               </div>
             </div>
             <div className="w-full lg:w-1/2 px-4">
-              <div className="max-w-md mb-6">
+              <div className="max-w-lg mb-6">
                 <span className="text-xs text-gray-400 tracking-wider">
-                  {productDetails.id}
+                  {productDetails && productDetails.id}
                 </span>
-                <h2 className="mt-6 mb-4 text-5xl md:text-6xl lg:text-7xl font-heading font-medium">
-                  {productDetails.name}
+                <h2 className="mt-6 mb-4 text-4xl md:text-5xl lg:text-6xl font-heading font-medium">
+                  {productDetails && productDetails.name}
                 </h2>
                 <p className="flex items-center mb-6">
                   <span className="mr-2 text-sm text-blue-500 font-medium">
                     GHC
                   </span>
-                  <span className="text-3xl text-blue-500 font-medium">
-                    {productDetails.price}
+                  <span className="text-5xl text-blue-500 font-semibold">
+                    {productDetails && productDetails.price}
                   </span>
                 </p>
-                <p className="text-lg text-gray-400">
-                  The nulla commodo, commodo eros a lor, tristique lectus. Lorem
-                  sad 128 GB silver.
+                <p className="text-md text-gray-400">
+                {productDetails && productDetails.description}
                 </p>
               </div>
               <div className="flex mb-6 items-center">
@@ -335,7 +314,7 @@ function ProductDetails({ id }: { id: string }) {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

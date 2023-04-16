@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import FogetPassword from "./pages/ForgetPassword";
+import AllProducts from "./pages/AllProducts";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route
             path="/product-details/:id"
-            element={<ProductDetails id={"id"} />}
+            element={<ProductDetails/>}
           />
+          <Route path="/all-products" element={<AllProducts />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<FogetPassword />} />

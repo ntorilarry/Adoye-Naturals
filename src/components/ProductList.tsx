@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { db} from "../utils/Firebase";
+import { db } from "../utils/Firebase";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 interface dataType {
   id: string;
   name: string;
   price: number;
   imgurl: string;
+  product: any;
 }
 
 export default function ProductList() {
   const [product, setProduct] = useState<dataType[]>([]);
 
+  const fetchProduct = async () => {
+    const response = await axios.get(
+      "http://localhost:3001/api/latest-products"
+    );
+    setProduct(response.data);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const snapshot = await db.collection("latest products").get();
-      const items = snapshot.docs.map((doc: { data: () => any }) => doc.data());
-      setProduct(items);
-    };
-
-    fetchData();
+    fetchProduct();
   }, []);
 
   return (
