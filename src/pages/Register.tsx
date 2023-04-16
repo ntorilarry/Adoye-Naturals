@@ -1,9 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  let navigate = useNavigate();
+
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email, password);
+    setFullName("");
+    setEmail("");
+    setPhoneNumber("");
+    setPassword("");
+
+    axios({
+      method: "post",
+      url: "http://localhost:3001/api/register",
+      data: JSON.stringify({
+        fullName: fullName,
+        email: email,
+        phoneNumber: phoneNumber,
+        password: password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      validateStatus: () => true,
+    })
+      .then((response) => {
+        console.log(response);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      });
+  };
   return (
     <div>
       <Navbar />
@@ -12,7 +49,7 @@ function Register() {
           <div className="flex flex-col justify-center sm:mx-auto sm:w-full sm:max-w-md">
             <p className="mt-6 text-center text-sm text-text">
               No account?{" "}
-              <Link 
+              <Link
                 to="/login"
                 className="font-semibold text-primary hover:text-primary-accent"
               >
@@ -27,7 +64,26 @@ function Register() {
                 Register
               </h1>
 
-              <form className="mt-6 flex flex-col space-y-4">
+              <form
+                onSubmit={handleSubmit}
+                className="mt-6 flex flex-col space-y-4"
+              >
+                <div>
+                  <label
+                    htmlFor="fullname"
+                    className="block text-sm font-medium text-heading"
+                  >
+                    Full Name
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="mt-2 block w-full rounded-xl border-2 border-muted-3 bg-transparent px-4 py-2.5 font-semibold text-heading placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-0 sm:text-sm"
+                  />
+                </div>
                 <div>
                   <label
                     htmlFor="email"
@@ -39,6 +95,24 @@ function Register() {
                     id="email"
                     name="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mt-2 block w-full rounded-xl border-2 border-muted-3 bg-transparent px-4 py-2.5 font-semibold text-heading placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-0 sm:text-sm"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="fullname"
+                    className="block text-sm font-medium text-heading"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    id="phonenumber"
+                    name="phonenumber"
+                    type="text"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
                     className="mt-2 block w-full rounded-xl border-2 border-muted-3 bg-transparent px-4 py-2.5 font-semibold text-heading placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-0 sm:text-sm"
                   />
                 </div>
@@ -53,6 +127,8 @@ function Register() {
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="mt-2 block w-full rounded-xl border-2 border-muted-3 bg-transparent px-4 py-2.5 font-semibold text-heading placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-0 sm:text-sm"
                   />
                 </div>

@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function LogIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  let navigate = useNavigate();
+
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email, password);
+    setEmail("");
+    setPassword("");
+
+    axios({
+      method: "post",
+      url: "http://localhost:3001/api/login",
+      data: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      validateStatus: () => true,
+    })
+      .then((response) => {
+        console.log(response);
+        navigate("/")
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      });
+  };
   return (
     <div>
       <Navbar />
@@ -27,7 +58,10 @@ function LogIn() {
                 Welcome Back!
               </h1>
 
-              <form className="mt-6 flex flex-col space-y-4">
+              <form
+                onSubmit={handleSubmit}
+                className="mt-6 flex flex-col space-y-4"
+              >
                 <div>
                   <label
                     htmlFor="email"
@@ -39,6 +73,8 @@ function LogIn() {
                     id="email"
                     name="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="mt-2 block w-full rounded-xl border-2 border-muted-3 bg-transparent px-4 py-2.5 font-semibold text-heading placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-0 sm:text-sm"
                   />
                 </div>
@@ -53,6 +89,8 @@ function LogIn() {
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="mt-2 block w-full rounded-xl border-2 border-muted-3 bg-transparent px-4 py-2.5 font-semibold text-heading placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-0 sm:text-sm"
                   />
                 </div>
