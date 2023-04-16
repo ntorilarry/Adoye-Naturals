@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 const navigation = {
   pages: [
     { name: "All Products", href: "/all-products" },
-    { name: "Bar Soap", href: "#" },
-    { name: "Body Butter", href: "#" },
-    { name: "Social Impact", href: "#" },
+    { name: "Bar Soap", href: "/bar-soaps" },
+    { name: "Body Butter", href: "/body-butters" },
+    { name: "Social Impact", href: "/social-impact" },
   ],
 };
 
@@ -102,7 +102,7 @@ export default function Navbar() {
       </Transition.Root>
 
       <header className="relative bg-white ">
-        <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+        <p className="flex h-10 items-center justify-center bg-[#3B0B01] px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
         </p>
 
