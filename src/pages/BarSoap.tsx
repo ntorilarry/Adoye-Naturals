@@ -11,6 +11,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
+import SoapList from "../components/SoapList";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -350,7 +351,7 @@ export default function BarSoap() {
                 </form>
 
                 {/* Product grid */}
-                <div className="lg:col-span-3">{/* <ProductList/> */}</div>
+                <div className="lg:col-span-3"><SoapList/></div>
               </div>
             </section>
           </main>

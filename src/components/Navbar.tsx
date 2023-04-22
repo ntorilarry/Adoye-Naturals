@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const navigation = {
   pages: [
     { name: "All Products", href: "/all-products" },
-    { name: "Bar Soap", href: "/bar-soaps" },
+    { name: "Soap", href: "/soaps" },
     { name: "Body Butter", href: "/body-butters" },
     { name: "Social Impact", href: "/social-impact" },
   ],

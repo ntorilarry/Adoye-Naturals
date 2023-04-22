@@ -12,6 +12,7 @@ import AllProducts from "./pages/AllProducts";
 import BarSoap from "./pages/BarSoap";
 import BodyButter from "./pages/BodyButter";
 import SocialImpact from "./pages/SocialImpact";
+import SoapDetails from "./pages/SoapDetails";
 
 function App() {
   return (
@@ -20,12 +21,10 @@ function App() {
         {/* Main Routes */}
         <Route>
           <Route path="/" element={<Homepage />} />
-          <Route
-            path="/product-details/:id"
-            element={<ProductDetails/>}
-          />
+          <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/soap-details/:id" element={<SoapDetails />} />
           <Route path="/all-products" element={<AllProducts />} />
-          <Route path="/bar-soaps" element={<BarSoap />} />
+          <Route path="/soaps" element={<BarSoap />} />
           <Route path="/body-butters" element={<BodyButter />} />
           <Route path="/social-impact" element={<SocialImpact />} />
           <Route path="/login" element={<LogIn />} />
