@@ -19,7 +19,7 @@ function ProductDetails() {
 
   const fetchProductDetails = async () => {
     const response = await axios.get(
-      `http://localhost:3001/api/latest-products/${id}`
+      `${process.env.REACT_APP_BASE_URL}/latest-products/${id}`
     );
     setProductDetails(response.data);
   };

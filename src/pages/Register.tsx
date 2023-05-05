@@ -21,7 +21,7 @@ function Register() {
 
     axios({
       method: "post",
-      url: "http://localhost:3001/api/register",
+      url: `${process.env.REACT_APP_BASE_URL}/register`,
       data: JSON.stringify({
         fullName: fullName,
         email: email,

@@ -17,7 +17,7 @@ function LogIn() {
 
     axios({
       method: "post",
-      url: "http://localhost:3001/api/login",
+      url: `${process.env.REACT_APP_BASE_URL}/login`,
       data: JSON.stringify({
         email: email,
         password: password,

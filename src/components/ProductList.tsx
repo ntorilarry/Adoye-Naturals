@@ -17,7 +17,7 @@ export default function ProductList() {
 
   const fetchProduct = async () => {
     const response = await axios.get(
-      "http://localhost:3001/api/latest-products"
+      `${process.env.REACT_APP_BASE_URL}/latest-products`
     );
     setProduct(response.data);
   };

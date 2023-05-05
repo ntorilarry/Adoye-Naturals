@@ -18,7 +18,7 @@ function SoapDetails() {
   console.log(`this is id ${id}`);
 
   const fetchSoapDetails = async () => {
-    const response = await axios.get(`http://localhost:3001/api/soap/${id}`);
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/soap/${id}`);
     setSoapyDetails(response.data);
   };
   useEffect(() => {
