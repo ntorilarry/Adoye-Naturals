@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 function LogIn() {
   const [email, setEmail] = useState("");
@@ -29,14 +30,17 @@ function LogIn() {
     })
       .then((response) => {
         console.log(response);
-        navigate("/")
+        toast.success('Login Successfully')
+        // navigate("/")
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
+        toast.error("Invalid Username or Password");
       });
   };
   return (
     <div>
+      <Toaster />
       <Navbar />
       <div className="bg-[#F8F9FA]">
         <div className="flex flex-col justify-center pt-10 pb-14 sm:px-6 lg:px-8">

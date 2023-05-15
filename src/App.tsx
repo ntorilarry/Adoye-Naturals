@@ -13,10 +13,12 @@ import BarSoap from "./pages/BarSoap";
 import BodyButter from "./pages/BodyButter";
 import SocialImpact from "./pages/SocialImpact";
 import SoapDetails from "./pages/SoapDetails";
+import {Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div className="App">
+      <Toaster/>
       <Routes>
         {/* Main Routes */}
         <Route>
