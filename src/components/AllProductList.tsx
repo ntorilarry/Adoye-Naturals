@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -11,7 +12,7 @@ interface dataType {
   product: any;
 }
 
-export default function ProductList() {
+export default function AllProductList() {
   const [product, setProduct] = useState<dataType[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,13 +33,9 @@ export default function ProductList() {
       {loading ? (
         <Loader />
       ) : (
-        <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-          <h2 className="text-center pb-10 text-[#3B0B01] text-3xl sm:text-4xl font-medium">
-            Latest Products
-          </h2>
-
+        <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6  lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {product.slice(0, 8).map((item, key) => (
+            {product.map((item, key) => (
               <Link
                 key={key}
                 to={`/product-details/${item.id}`}

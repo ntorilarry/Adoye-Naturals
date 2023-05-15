@@ -11,6 +11,8 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
+import Pagination from "../components/Pagination";
+import AllProductList from "../components/AllProductList";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -201,7 +203,7 @@ export default function AllProducts() {
           </Transition.Root>
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+            <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12">
               <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
                 All Products
               </h1>
@@ -350,12 +352,16 @@ export default function AllProducts() {
                 </form>
 
                 {/* Product grid */}
-                <div className="lg:col-span-3">{/* <ProductList/> */}</div>
+                <div className="lg:col-span-3">
+                  <AllProductList/>
+                 
+                </div>
               </div>
             </section>
           </main>
         </div>
       </div>
+      <Pagination />
       <Footer />
     </div>
   );

@@ -201,7 +201,7 @@ export default function BodyButter() {
           </Transition.Root>
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+            <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12">
               <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
                 Body Butters
               </h1>
