@@ -30,7 +30,7 @@ function LogIn() {
     })
       .then((response) => {
         console.log(response);
-        toast.success('Login Successfully')
+        // toast.success('Login Successfully')
         // navigate("/")
       })
       .catch((err) => {

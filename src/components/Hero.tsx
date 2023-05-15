@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Herobg from "../assets/hero.png";
 import Soap from "../assets/soapee.jpeg";
 import Showergel from "../assets/showergel.jpeg";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -38,13 +39,13 @@ function Hero() {
                     </p>
 
                     <div className="flex items-center justify-center mt-4 space-x-5 lg:justify-start">
-                      <a
-                        href="#_"
+                      <Link
+                        to="/all-products"
                         className="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
                       >
                         <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                         <span className="relative">Shop Now</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -61,17 +62,18 @@ function Hero() {
                       Get your skin refreshed and clean
                     </h1>
                     <p className="mt-2 text-lg text-[#6c757d] sm:mt-4">
-                    A gentle cleansing body wash that leaves skin refreshed and clean. Foams into a luxurious lather.
+                      A gentle cleansing body wash that leaves skin refreshed
+                      and clean. Foams into a luxurious lather.
                     </p>
 
                     <div className="flex items-center justify-center mt-4 space-x-5 lg:justify-start">
-                      <a
-                        href="#_"
+                      <Link
+                        to="/all-products"
                         className="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
                       >
                         <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                         <span className="relative">Shop Now</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
