@@ -11,7 +11,6 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
-import Pagination from "../components/Pagination";
 import AllProductList from "../components/AllProductList";
 
 const sortOptions = [
@@ -361,7 +360,6 @@ export default function AllProducts() {
           </main>
         </div>
       </div>
-      <Pagination />
       <Footer />
     </div>
   );

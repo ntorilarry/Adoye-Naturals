@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
+import Pagination from './Pagination';
+
 
 interface dataType {
   id: string;
@@ -15,18 +17,26 @@ interface dataType {
 export default function AllProductList() {
   const [product, setProduct] = useState<dataType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
-  const fetchProduct = async () => {
+
+  const fetchProduct = async (page: number) => {
     setLoading(true);
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/latest-products`
+      `${process.env.REACT_APP_BASE_URL}/latest-products?page=${page}`
     );
     setProduct(response.data);
+    setTotalPages(response.data.totalPages);
     setLoading(false);
   };
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    fetchProduct(currentPage);
+  }, [currentPage]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="bg-white">
@@ -59,6 +69,11 @@ export default function AllProductList() {
           </div>
         </div>
       )}
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }
