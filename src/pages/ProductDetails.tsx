@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 interface dataType {
   id: string;
@@ -14,14 +15,17 @@ interface dataType {
 
 function ProductDetails() {
   const [productDetails, setProductDetails] = useState<dataType>();
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   console.log(`this is the id ${id}`);
 
   const fetchProductDetails = async () => {
+    setLoading(true);
     const response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/latest-products/${id}`
     );
     setProductDetails(response.data);
+    setLoading(false);
   };
   useEffect(() => {
     fetchProductDetails();
@@ -30,6 +34,9 @@ function ProductDetails() {
   return (
     <div>
       <Navbar />
+      {loading ? (
+        <Loader />
+      ) : (
       <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
         <div className="container px-4 mx-auto">
           <div className="flex flex-wrap -mx-4">
@@ -314,6 +321,7 @@ function ProductDetails() {
           </div>
         </div>
       </section>
+      )}
       <Footer />
     </div>
   );
